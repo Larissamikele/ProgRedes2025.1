@@ -1,6 +1,6 @@
 # Entrada dos dados
-ip = input("Digite o endereço IP (ex: 192.168.1.10): ")
-mascara_bits = int(input("Digite a máscara em bits (ex: 24): "))
+ip = input("Digite o endereço IP ): ")
+mascara_bits = int(input("Digite a máscara em bits : "))
 
 # Dividindo o IP em pequenas partes
 ip_partes = ip.split(".")
