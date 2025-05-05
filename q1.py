@@ -21,10 +21,10 @@ def potencia(base, expoente):
 def main():
     # Entrada do usuário: 4 partes do IP e a máscara
     print("Digite o endereço IP:")
-    a = int(input("Primeiro número (ex: 192): "))
-    b = int(input("Segundo número (ex: 168): "))
-    c = int(input("Terceiro número (ex: 1): "))
-    d = int(input("Quarto número (ex: 10): "))
+    a = int(input("Primeiro número : "))
+    b = int(input("Segundo número : "))
+    c = int(input("Terceiro número : "))
+    d = int(input("Quarto número : "))
     
     bits = int(input("Digite a máscara em bits (ex: 24): "))
 
