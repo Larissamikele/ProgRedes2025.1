@@ -1,5 +1,6 @@
 # Nome da imagem
-nome_arquivo = 'WhatsApp Image 2025-05-07 at 17.36.08.jpeg'
+nome_arquivo = 'imagem_teste.jpeg'
+
 
 # 01 ETAPA: abrir e ler os primeiros 6 bytes
 with open(nome_arquivo, 'rb') as f:
