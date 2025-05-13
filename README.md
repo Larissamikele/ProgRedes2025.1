@@ -1,1 +1,2 @@
-Atividade 01 com bytes do Mano  Querido Galileu :)
+Alunos: Larissa Mikele  Matricula 20242014050044
+Ozivan Italo Braz
