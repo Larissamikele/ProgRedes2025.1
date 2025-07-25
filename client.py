@@ -4,12 +4,12 @@ import os
 SERVIDOR = "localhost"
 PORTA = 2121
 
-# Função para adicionar o tamanho dos dados no início da mensagem
+#adiciona o tamanho no inicio
 def adiciona_tamanho(dados):
     tamanho = len(dados)
     return tamanho.to_bytes(4, 'big') + dados
 
-# Função para receber dados do servidor, respeitando o protocolo (4 bytes de tamanho + dados)
+#dados + tamanho
 def recebe_dados(sock):
     dados_tamanho = sock.recv(4)
     if len(dados_tamanho) < 4:
@@ -24,7 +24,7 @@ def recebe_dados(sock):
         tamanho -= len(parte)
     return dados
 
-# Função para pedir a lista de arquivos ao servidor
+#peder a lista de arquivos ao servidor
 def lista_arquivos(sock):
     comando = b"DIR"
     sock.sendall(adiciona_tamanho(comando))
@@ -35,7 +35,7 @@ def lista_arquivos(sock):
     else:
         print("Não foi possível obter a lista de arquivos.")
 
-# Função para fazer download de arquivo
+#download
 def download_arquivo(sock):
     nome = input("Digite o nome do arquivo para baixar: ")
     comando = ("DOW " + nome).encode()
@@ -44,14 +44,14 @@ def download_arquivo(sock):
     if not dados:
         print("Arquivo não encontrado.")
         return
-    # Cria a pasta 'arquivos' se não existir
+    #Cria a pasta 'arquivos' se não existir
     if not os.path.exists("arquivos"):
         os.makedirs("arquivos")
     with open(os.path.join("arquivos", nome), "wb") as f:
         f.write(dados)
     print(f"Download do arquivo '{nome}' finalizado!")
 
-# Função para solicitar hash MD5 parcial do arquivo
+#solicita hash MD5
 def md5_parcial(sock):
     nome = input("Nome do arquivo para MD5 parcial: ")
     pos = input("Até qual posição (número) do arquivo?: ")
@@ -63,7 +63,7 @@ def md5_parcial(sock):
     else:
         print("Erro ao obter hash MD5 do arquivo.")
 
-# Menu simples para o usuário escolher a operação
+#interface do cliente
 def menu(sock):
     while True:
         print("\n===== Menu =====")

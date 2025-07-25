@@ -7,12 +7,12 @@ SERVIDOR = ""
 PORTA = 2121
 PASTA_ARQUIVOS = "arquivos"
 
-# Função que adiciona o tamanho dos dados no começo da mensagem
+#tamanhos
 def adiciona_tamanho(dados):
     tamanho = len(dados)  # calcula tamanho em bytes
     return tamanho.to_bytes(4, byteorder='big') + dados
 
-# Função para receber dados completos (com tamanho prefixado)
+# Função para receber dados
 def recebe_dados(sock):
     dados_tamanho = sock.recv(4)
     if len(dados_tamanho) < 4:
@@ -27,7 +27,7 @@ def recebe_dados(sock):
         tamanho -= len(parte)
     return dados
 
-# Função para enviar a lista de arquivos ao cliente
+#envia a lista de arquivos
 def envia_lista_arquivos(sock_con):
     try:
         lista = os.listdir(PASTA_ARQUIVOS)
@@ -55,7 +55,7 @@ def envia_arquivo(sock_con, nome_arquivo):
     except:
         sock_con.sendall((0).to_bytes(4, byteorder='big'))
 
-# Função para enviar hash MD5 parcial de um arquivo
+# Função para enviar hash MD5 
 def envia_md5_parcial(sock_con, nome_arquivo, posicao_str):
     caminho = os.path.join(PASTA_ARQUIVOS, nome_arquivo.decode())
     if not os.path.isfile(caminho):
@@ -75,7 +75,7 @@ def envia_md5_parcial(sock_con, nome_arquivo, posicao_str):
     except:
         sock_con.sendall(adiciona_tamanho(b""))
 
-# Função para ler comando completo do cliente (com tamanho prefixado)
+# Função para ler o que o cliente enviou
 def le_comando(sock):
     dados = recebe_dados(sock)
     return dados
