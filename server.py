@@ -3,9 +3,9 @@ import os
 import threading    
 import hashlib      
 
-SERVIDOR = ""      
+SERVIDOR = ""     
 PORTA = 2121       
-PASTA_ARQUIVOS = "arquivos"  
+PASTA_ARQUIVOS = 'arquivos'  
 
 # Função que adiciona o tamanho dos dados no começo da mensagem
 def adiciona_tamanho(dados):
@@ -71,6 +71,17 @@ def envia_md5_parcial(sock_con, nome_arquivo, posicao_str):
                 envia_lista_arquivos(sock_con)
             elif comando[:3] == b"DOW":  # Se comando for 'DOW' - download arquivo
                 nome_arquivo = comando[4:
+                                       
+nome_arquivo = comando[4:]  # Pega o nome do arquivo que vem depois do 'DOW '
+                envia_arquivo(sock_con, nome_arquivo)
+            elif comando[:3] == b"MD5":  # Se comando for 'MD5' - hash parcial
+                # Espera comando no formato: b"MD5 nome_arquivo posicao"
+                partes = comando.split(b" ")
+                if len(partes) == 3:
+                    nome_arquivo = partes[1]
+                    posicao_str = partes[2]
+                    envia_md5_parcial(sock_con, nome_arquivo, posicao_str)
+                else:
             hash_md5 = md5.hexdigest().encode()  # Pega o hash em texto e transforma em bytes
            if __name__ == "__main__":
     inicia_servidor()  
