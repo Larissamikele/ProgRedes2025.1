@@ -12,7 +12,7 @@ def adiciona_tamanho(dados):
     tamanho = len(dados)  # calcula tamanho em bytes
     return tamanho.to_bytes(4, byteorder='big') + dados
 
-# Função para receber dados
+#recebe dados
 def recebe_dados(sock):
     dados_tamanho = sock.recv(4)
     if len(dados_tamanho) < 4:
@@ -42,7 +42,7 @@ def envia_lista_arquivos(sock_con):
     except:
         sock_con.sendall(adiciona_tamanho(b""))
 
-# Função para enviar o conteúdo de um arquivo ao cliente
+#envia os arquivos para o cliente
 def envia_arquivo(sock_con, nome_arquivo):
     caminho = os.path.join(PASTA_ARQUIVOS, nome_arquivo.decode())
     if not os.path.isfile(caminho):
@@ -55,7 +55,7 @@ def envia_arquivo(sock_con, nome_arquivo):
     except:
         sock_con.sendall((0).to_bytes(4, byteorder='big'))
 
-# Função para enviar hash MD5 
+#envia hash MD5 
 def envia_md5_parcial(sock_con, nome_arquivo, posicao_str):
     caminho = os.path.join(PASTA_ARQUIVOS, nome_arquivo.decode())
     if not os.path.isfile(caminho):
@@ -75,12 +75,12 @@ def envia_md5_parcial(sock_con, nome_arquivo, posicao_str):
     except:
         sock_con.sendall(adiciona_tamanho(b""))
 
-# Função para ler o que o cliente enviou
+#oque o cliente envia
 def le_comando(sock):
     dados = recebe_dados(sock)
     return dados
 
-# Função que trata a conexão com o cliente
+#conectando com o cliente
 def trata_cliente(sock_con, endereco):
     try:
         while True:
@@ -101,7 +101,7 @@ def trata_cliente(sock_con, endereco):
                     nome_arquivo = partes[1]
                  
 
-# Função principal para iniciar o servidor
+#Função principal para iniciar o servidor
 def inicia_servidor():
     servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     servidor.bind((SERVIDOR, PORTA))
